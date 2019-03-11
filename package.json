@@ -1,0 +1,37 @@
+{
+  "name": "nextjs-typed-router",
+  "version": "0.0.3-poc",
+  "main": "dist/index.js",
+  "repository": "https://github.com/AlfonzAlfonz/nextjs-router.git",
+  "author": "Denis Homolík <denis@homolik.cz>",
+  "license": "MIT",
+  "scripts": {
+    "lint": "yarn tslint -c tslint.json 'src/**/*.ts' --project tsconfig.json",
+    "test": "mocha --reporter spec",
+    "build": "tsc",
+    "debug": "tsc && yarn mocha --debug-brk",
+    "ci": "npm run lint && npm run build",
+    "prepublishOnly": "npm run ci"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
+    "@types/next": "^7.0.9",
+    "@types/react": "^16.8.6",
+    "chai": "^4.2.0",
+    "mocha": "^6.0.2",
+    "prettier": "^1.16.4",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "tslint-react": "^3.6.0",
+    "typescript": "^3.3.3"
+  },
+  "peerDependencies": {
+    "next": "^8.0.3",
+    "react": "^16.8.3"
+  },
+  "dependencies": {
+    "path-to-regexp": "^3.0.0"
+  }
+}

@@ -1,0 +1,26 @@
+
+{
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier"
+  ],
+  "jsRules": {},
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "prettier": true,
+    "variable-name": false,
+    "no-submodule-imports": false,
+    "no-var-requires": false,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "no-conditional-assignment": false,
+    "jsx-boolean-value": false,
+    "jsx-no-lambda": false,
+    "only-arrow-functions": true,
+    "deprecation": true,
+    "no-unused-expression": false,
+    "interface-name": false
+  }
+}
