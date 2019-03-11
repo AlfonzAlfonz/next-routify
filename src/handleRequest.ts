@@ -1,24 +1,22 @@
-// import { match } from "./match";
-// import StringMap from "StringMap";
-// import { RouteData } from "routes/route";
-// import { getRouteFilename } from "./flattenRoutes";
+import StringMap from "./StringMap";
+import { RouteData } from "./routes/route";
+import { match } from "./match";
+import { getRouteFilename } from "./flattenRoutes";
 
-// interface IMatchedData {
-//   filename: string;
-//   params: StringMap<string>;
-// }
+interface IMatchedData {
+  filename: string;
+  params: StringMap<string>;
+}
 
-// export default (
-//   pathname: string | null,
-//   flattenRoutes: StringMap<RouteData<{}>>
-// ): Promise<IMatchedData> => {
-//   const result = match<StringMap<string>>(pathname as string, flattenRoutes);
-//   return new Promise((resolve, reject) =>
-//     result
-//       ? resolve({
-//           filename: getRouteFilename(flattenRoutes[result.path]),
-//           params: result.params
-//         })
-//       : reject()
-//   );
-// };
+export default (
+  pathname: string | undefined,
+  flattenRoutes: StringMap<RouteData<{}>>
+) => (some: (data: IMatchedData) => unknown, none: () => unknown) => {
+  const result = match<StringMap<string>>(pathname as string, flattenRoutes);
+  return result
+    ? some({
+        filename: getRouteFilename(flattenRoutes[result.path]),
+        params: result.params
+      })
+    : none();
+};

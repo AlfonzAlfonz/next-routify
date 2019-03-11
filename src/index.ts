@@ -8,3 +8,4 @@ export {
   isActive
 } from "./routeLinkBuilder";
 export { getRouteFilename } from "./flattenRoutes";
+export { default as handleRequest } from "./handleRequest";
