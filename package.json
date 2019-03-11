@@ -1,6 +1,6 @@
 {
   "name": "nextjs-typed-router",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/nextjs-router.git",
   "author": "Denis Homolík <denis@homolik.cz>",
@@ -10,7 +10,7 @@
     "test": "mocha --reporter spec",
     "build": "tsc",
     "debug": "tsc && yarn mocha --debug-brk",
-    "ci": "npm run lint && npm run build",
+    "ci": "yarn lint && yarn build && yarn test",
     "prepublishOnly": "npm run ci"
   },
   "devDependencies": {
