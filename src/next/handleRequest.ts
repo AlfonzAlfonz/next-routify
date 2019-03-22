@@ -1,7 +1,7 @@
-import StringMap from "./StringMap";
-import { RouteData } from "./routes/route";
-import { match } from "./match";
-import { getRouteFilename } from "./flattenRoutes";
+import StringMap from "../StringMap";
+import { RouteData } from "../routes/route";
+import { match } from "../match";
+import { getRouteFilename } from "../flattenRoutes";
 
 interface IMatchedData {
   filename: string;

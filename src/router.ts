@@ -1,4 +1,4 @@
-import { Route, RouteData, route } from "./routes/route";
+import { Route, RouteData } from "./routes/route";
 import StringMap from "./StringMap";
 import { join } from "./utils";
 import { flattenRouter } from "./flattenRoutes";
