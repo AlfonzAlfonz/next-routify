@@ -4,11 +4,13 @@ import { Router } from "../router";
 import getHrefUrl from "./getHrefUrl";
 import StringMap from "../StringMap";
 import { RouteData } from "../routes/route";
+import { IsActive } from "next";
 
 export interface ILinkProps {
   prefetch?: boolean;
   to: string;
   children: React.ReactElement<any>;
+  active?: string;
 }
 
 export default <TArgs, TChildren>(
@@ -25,7 +27,13 @@ export default <TArgs, TChildren>(
         as={props.to}
         href={getHrefUrl(props.to, flattenRoutes)}
       >
-        {props.children}
+        {props.active ? (
+          <IsActive url={props.to} active={props.active}>
+            {props.children}
+          </IsActive>
+        ) : (
+          props.children
+        )}
       </Link>
     );
   };
