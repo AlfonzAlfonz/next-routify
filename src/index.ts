@@ -5,10 +5,12 @@ export { Router, router } from "./router";
 export { getRouteFilename } from "./flattenRoutes";
 
 // Next
-export { default as handleRequest } from "./next/handleRequest";
-export { default as IsActive, isUrlActive } from "./next/IsUrlActive";
 export {
+  requestHandler,
+  getHrefUrl,
+  routeLinkBuilder,
   ILinkProps,
-  default as routeLinkBuilder
-} from "./next/routeLinkBuilder";
-export { default as getHrefUrl } from "./next/getHrefUrl";
+  IsActive,
+  isUrlActive,
+  handleRequest
+} from "./next";

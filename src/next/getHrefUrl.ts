@@ -1,7 +1,7 @@
-import StringMap from "StringMap";
-import { Router } from "router";
-import { match } from "match";
-import { getRouteFilename } from "flattenRoutes";
+import StringMap from "../StringMap";
+import { Router } from "../router";
+import { match } from "../match";
+import { getRouteFilename } from "../flattenRoutes";
 
 const createQuery = (data: StringMap<string>) =>
   "?" +

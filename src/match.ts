@@ -1,4 +1,4 @@
-import StringMap from "StringMap";
+import StringMap from "./StringMap";
 import * as pathToRegexp from "path-to-regexp";
 import { RouteData } from "./index";
 
