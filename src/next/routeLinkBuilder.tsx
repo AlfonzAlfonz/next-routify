@@ -3,7 +3,7 @@ import Link from "next/link";
 import getHrefUrl from "./getHrefUrl";
 import StringMap from "../StringMap";
 import { RouteData } from "../routes/route";
-import IsUrlActive, { isUrlActive } from "./IsUrlActive";
+import { isUrlActive } from "./IsUrlActive";
 import { withRouter, WithRouterProps } from "next/router";
 
 export interface ILinkProps {

@@ -22,4 +22,10 @@ export const route = <TArgs>(
 export const bundle = <TArgs, TChildren>(
   r: RouteData<TArgs>,
   children: TChildren
-): RouteData<TArgs, TChildren> => ({ ...r, type: "bundle", children });
+): RouteData<TArgs, TChildren> & Route<TArgs> & TChildren =>
+  ({
+    ...r,
+    url: () => "",
+    type: "bundle",
+    children
+  } as any);
