@@ -1,7 +1,7 @@
 import StringMap from "../StringMap";
-import { Router } from "../router";
 import { match } from "../match";
 import { getRouteFilename } from "../flattenRoutes";
+import { RouteData } from "../routes/route";
 
 const createQuery = (data: StringMap<string>) =>
   "?" +
@@ -14,10 +14,10 @@ const createQuery = (data: StringMap<string>) =>
 
 const getHrefUrl = <TArgs, TChildren>(
   url: string,
-  routes: Router<TArgs, TChildren>
+  flattenRoutes: StringMap<RouteData<{}, {}>>
 ) => {
-  const m = match<StringMap<string>>(url, routes.flattenRoutes);
-  return getRouteFilename(routes.flattenRoutes[m.path]) + createQuery(m.params);
+  const m = match<StringMap<string>>(url, flattenRoutes);
+  return getRouteFilename(flattenRoutes[m.path]) + createQuery(m.params);
 };
 
 export default getHrefUrl;

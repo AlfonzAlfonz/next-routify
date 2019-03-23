@@ -1,6 +1,6 @@
 {
   "name": "nextjs-typed-router",
-  "version": "0.0.9",
+  "version": "0.1.1",
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/nextjs-router.git",
   "author": "Denis Homolík <denis@homolik.cz>",
