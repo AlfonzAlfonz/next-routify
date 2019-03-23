@@ -21,7 +21,7 @@ const IsActive: React.FC<WithRouterProps<{}> & Props> = ({
   active = "active"
 }) => {
   const child = React.Children.only(children);
-  const className = isUrlActive(url, router) && active;
+  const className = isUrlActive(url, router) ? active : "";
   return React.cloneElement(child, {
     className: child.props.className
       ? child.props.className + " " + className

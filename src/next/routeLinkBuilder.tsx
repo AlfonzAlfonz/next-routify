@@ -1,10 +1,10 @@
 import * as React from "react";
 import Link from "next/link";
-import { Router } from "../router";
 import getHrefUrl from "./getHrefUrl";
 import StringMap from "../StringMap";
 import { RouteData } from "../routes/route";
-import IsUrlActive from "./IsUrlActive";
+import IsUrlActive, { isUrlActive } from "./IsUrlActive";
+import { withRouter, WithRouterProps } from "next/router";
 
 export interface ILinkProps {
   prefetch?: boolean;
@@ -16,7 +16,7 @@ export interface ILinkProps {
 export default <TArgs, TChildren>(
   flattenRoutes: StringMap<RouteData<{}, {}>>
 ) => {
-  const RouteLink: React.FC<ILinkProps> = props => {
+  const RouteLink: React.FC<ILinkProps & WithRouterProps<{}>> = props => {
     const linkProps = { ...props };
     delete linkProps.to;
     delete linkProps.children;
@@ -27,16 +27,23 @@ export default <TArgs, TChildren>(
         as={props.to}
         href={getHrefUrl(props.to, flattenRoutes)}
       >
-        {props.active ? (
-          <IsUrlActive url={props.to} active={props.active}>
-            {props.children}
-          </IsUrlActive>
-        ) : (
-          props.children
-        )}
+        {(props.active
+          ? () => {
+              const child = React.Children.only(props.children);
+              const className = isUrlActive(props.to, props.router)
+                ? props.active
+                : "";
+
+              return React.cloneElement(child, {
+                className: child.props.className
+                  ? child.props.className + " " + className
+                  : className
+              });
+            }
+          : () => props.children)()}
       </Link>
     );
   };
 
-  return RouteLink;
+  return withRouter(RouteLink);
 };
