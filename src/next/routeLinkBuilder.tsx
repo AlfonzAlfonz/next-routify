@@ -4,7 +4,7 @@ import { Router } from "../router";
 import getHrefUrl from "./getHrefUrl";
 import StringMap from "../StringMap";
 import { RouteData } from "../routes/route";
-import { IsActive } from "next";
+import IsUrlActive from "./IsUrlActive";
 
 export interface ILinkProps {
   prefetch?: boolean;
@@ -28,9 +28,9 @@ export default <TArgs, TChildren>(
         href={getHrefUrl(props.to, flattenRoutes)}
       >
         {props.active ? (
-          <IsActive url={props.to} active={props.active}>
+          <IsUrlActive url={props.to} active={props.active}>
             {props.children}
-          </IsActive>
+          </IsUrlActive>
         ) : (
           props.children
         )}
