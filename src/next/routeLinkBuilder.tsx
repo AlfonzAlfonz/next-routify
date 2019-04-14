@@ -1,36 +1,34 @@
 import * as React from "react";
 import Link from "next/link";
-import getHrefUrl from "./getHrefUrl";
-import StringMap from "../StringMap";
-import { RouteData } from "../routes/route";
-import { isUrlActive } from "./IsUrlActive";
 import { withRouter, WithRouterProps } from "next/router";
+import getHrefUrl from "./getHrefUrl";
+import { isUrlActive } from "./IsUrlActive";
+import { FlattenRoutes } from "../router";
+
+export type RouteUrl = string | { url: string };
 
 export interface ILinkProps {
   prefetch?: boolean;
-  to: string;
+  to: RouteUrl;
   children: React.ReactElement<any>;
   active?: string;
 }
 
-export default <TArgs, TChildren>(
-  flattenRoutes: StringMap<RouteData<{}, {}>>
-) => {
+export default (flattenRoutes: FlattenRoutes) => {
   const RouteLink: React.FC<ILinkProps & WithRouterProps<{}>> = props => {
     const linkProps = { ...props };
     delete linkProps.to;
     delete linkProps.children;
+    delete linkProps.router;
+
+    const url = typeof props.to === "string" ? props.to : props.to.url;
 
     return (
-      <Link
-        {...linkProps}
-        as={props.to}
-        href={getHrefUrl(props.to, flattenRoutes)}
-      >
+      <Link {...linkProps} as={url} href={getHrefUrl(url, flattenRoutes)}>
         {(props.active
           ? () => {
               const child = React.Children.only(props.children);
-              const className = isUrlActive(props.to, props.router)
+              const className = isUrlActive(url, props.router)
                 ? props.active
                 : "";
 

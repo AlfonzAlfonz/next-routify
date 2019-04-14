@@ -1,28 +1,22 @@
 import { IncomingMessage, ServerResponse } from "http";
 import { parse } from "url";
-import handleRequest from "./handleRequest";
 import { Server } from "next-server";
-import StringMap from "../StringMap";
-import { RouteData } from "../routes/route";
+import { FlattenRoutes } from "../router";
+import { match } from "../match";
 
-const requestHandler = (
-  app: Server,
-  flattenRoutes: StringMap<RouteData<{}>>
-) => {
+const requestHandler = (app: Server, flattenRoutes: FlattenRoutes) => {
   const handle = app.getRequestHandler();
 
   return (req: IncomingMessage, res: ServerResponse) => {
-    const parsedUrl = parse(req.url as string, true);
-    const { pathname, query } = parsedUrl;
+    const { pathname, query } = parse(req.url as string, true);
+    const result = match(pathname as string, flattenRoutes);
 
-    handleRequest(pathname, flattenRoutes)(
-      data =>
-        app.render(req, res, data.filename, {
-          ...query,
-          ...data.params
-        }),
-      () => handle(req, res, parsedUrl)
-    );
+    result
+      ? app.render(req, res, flattenRoutes[result.path], {
+          ...result.params,
+          ...query
+        })
+      : handle(req, res);
   };
 };
 

@@ -1,31 +1,12 @@
-export interface Route<TArgs = {}> {
-  url: (args: TArgs) => string;
-}
+import { resolvePath } from "../utils";
+import { RouteEndpoint } from "./index";
 
-export interface RouteData<TArgs = {}, TChildren = {}> {
-  type: "route" | "bundle" | "routeIntl";
-  path: string;
-  filename?: string;
-  children?: TChildren;
-}
+export type Route<TArgs = {}> = (args: TArgs) => RouteEndpoint;
 
-export const route = <TArgs>(
-  path: string,
-  filename?: string
-): RouteData<TArgs> & Route<TArgs> => ({
-  type: "route",
-  url: () => "",
-  path,
-  filename
-});
-
-export const bundle = <TArgs, TChildren>(
-  r: RouteData<TArgs>,
-  children: TChildren
-): RouteData<TArgs, TChildren> & Route<TArgs> & TChildren =>
-  ({
-    ...r,
-    url: () => "",
-    type: "bundle",
-    children
-  } as any);
+export const route = <TArgs = {}>(path: string, filename?: string) => {
+  const func = (args: TArgs) => ({
+    url: resolvePath(path, args)
+  });
+  func.routeData = { path, filename };
+  return func;
+};

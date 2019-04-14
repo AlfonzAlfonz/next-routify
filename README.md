@@ -1,77 +1,55 @@
 # Next JS typed router
 
-Routing alternative for safe urls with typed parameters. For creating easy to use dynamic routes.
+Routing alternative for safe urls with typed parameters.
 
-## How to use
+## Setup with typescript
 
-### Install
+Install it:
 
+```bash
+npm install --save nextjs-typed-router ts-node
+
+yarn add nextjs-typed-router ts-node
 ```
-npm install --save nextjs-typed-router
 
-yarn add nextjs-typed-router
-
-```
-
-### Create _routes.ts_
+Create routes.ts with your routes:
 
 ```typescript
+import { route, simple, bundle, router, routeLinkBuilder } from "../../dist";
 const { routes, flattenRoutes } = router(
-  bundle(
-    route(""), // Homepage
-    {
+  // Define root route
+  bundle(simple(""), {
+    // Route with parameter id
+    article: route<{ id: number }>("article/:id"),
+    // Route without parameters
+    user: simple("user"),
+    // Nested routes
+    admin: bundle(simple("admin"), {
       article: route<{ id: number }>("article/:id"),
-      user: route("user"),
-      admin: bundle(route("admin"), {
-        article: route<{ id: number }>("article/:id", "admin/article"),
-        user: route("user", "admin/user")
-      })
-    }
-  )
+      user: simple("user")
+    })
+  })
 );
+
+// Component for creating links
+export const RouteLink = routeLinkBuilder(flattenRoutes);
 ```
 
-### Use
-
-```typescript
-// Use with parameters
-routes.article.url({ id: 5 });
-
-//
-routes.user.url({});
-```
-
-### Sample Next server
+Create server.ts in root directory:
 
 ```typescript
 import { createServer } from "http";
-import { parse } from "url";
 import * as next from "next";
+import { requestHandler } from "nextjs-typed-router";
 import { flattenRoutes } from "./src/routes";
-import { handleRequest } from "nextjs-typed-router";
 
-const dev = process.env.NODE_ENV !== "production";
 const app = next({
-  dev,
-  dir: "./src"
+  dev: process.env.NODE_ENV !== "production"
 });
-const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
-  createServer((req, res) => {
-    const parsedUrl = parse(req.url as string, true);
-    const { pathname, query } = parsedUrl;
-
-    handleRequest(pathname, flattenRoutes)(
-      data =>
-        app.render(req, res, data.filename, {
-          ...query,
-          ...data.params
-        }),
-      () => handle(req, res, parsedUrl)
-    );
-  })
-    .addListener("error", (err: any) => {
+  createServer(requestHandler(app, flattenRoutes))
+    .addListener("error", err => {
       console.log(err);
       throw err;
     })
@@ -79,5 +57,69 @@ app.prepare().then(() => {
       console.log("> Ready on http://localhost:3000");
     });
 });
+```
 
+Create tsconfig.server.json
+
+```json
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "lib": ["dom", "es2017"]
+  }
+}
+```
+
+Add script to your package.json:
+
+```json
+{
+  "scripts": {
+    "next": "ts-node --project tsconfig.server.json server.ts"
+  }
+}
+```
+
+Now you can simply run server with:
+
+```json
+yarn next
+```
+
+## Get url
+
+Get url as string:
+
+```typescript
+// /
+routes().url;
+
+// /article/5
+routes().article({ id: 5 }).url;
+
+// /user
+routes().user().url;
+
+// /admin
+routes().admin().url;
+
+// /admin/article/5
+routes()
+  .admin()
+  .article({ id: 5 }).url;
+
+// /admin/user
+routes()
+  .admin()
+  .user().url;
+```
+
+Create link to a route:
+
+```tsx
+<RouteLink to={routes().article({ id: 5 })}>
+  <a>Click here</a>
+</RouteLink>
 ```

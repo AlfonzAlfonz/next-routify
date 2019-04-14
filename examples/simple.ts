@@ -1,19 +1,34 @@
-import { router } from "../src/router";
-import { bundle, route } from "../src/routes/route";
+import { route, simple, bundle, router } from "../dist";
 
-const { routes } = router(
-  bundle(
-    route(""), // Homepage
-    {
+const { routes, flattenRoutes } = router(
+  bundle(simple(""), {
+    article: route<{ id: number }>("article/:id"),
+    user: simple("user"),
+    admin: bundle(simple("admin"), {
       article: route<{ id: number }>("article/:id"),
-      user: route("user"),
-      admin: bundle(route("admin"), {
-        article: route<{ id: number }>("article/:id", "admin/article"),
-        user: route("user", "admin/user")
-      })
-    }
-  )
+      user: simple("user")
+    })
+  })
 );
 
-routes.article.url({ id: 5 });
-routes.user.url({});
+// /
+routes().url;
+
+// /article/5
+routes().article({ id: 5 }).url;
+
+// /user
+routes().user().url;
+
+// /admin
+routes().admin().url;
+
+// /admin/article/5
+routes()
+  .admin()
+  .article({ id: 5 }).url;
+
+// /admin/user
+routes()
+  .admin()
+  .user().url;

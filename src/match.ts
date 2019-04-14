@@ -1,6 +1,6 @@
-import StringMap from "./StringMap";
 import * as pathToRegexp from "path-to-regexp";
-import { RouteData } from "./index";
+import { FlattenRoutes } from "./router";
+import { parse } from "url";
 
 export interface IMatch<TParams> {
   path: string;
@@ -9,16 +9,17 @@ export interface IMatch<TParams> {
 
 // Match url to flattenRoute
 export const match = <TParams>(
-  path: string,
-  routes: StringMap<RouteData<{}>>
-): IMatch<TParams> =>
-  Object.keys(routes)
+  p: string,
+  flattenRoutes: FlattenRoutes
+): IMatch<TParams> => {
+  const { pathname } = parse(p);
+  return Object.keys(flattenRoutes)
     .map(k => {
       const keys: pathToRegexp.Key[] = [];
       const regex = pathToRegexp(k, keys);
 
-      if (regex.test(path)) {
-        const [url, ...tokens] = regex.exec(path) as string[];
+      if (regex.test(pathname || "")) {
+        const [_, ...tokens] = regex.exec(pathname || "") as string[];
 
         return {
           path: k,
@@ -30,3 +31,4 @@ export const match = <TParams>(
       }
     })
     .find(r => r !== undefined) as IMatch<TParams>;
+};

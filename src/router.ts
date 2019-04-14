@@ -1,67 +1,64 @@
-import { Route, RouteData } from "./routes/route";
-import StringMap from "./StringMap";
 import { join } from "./utils";
-import { flattenRouter } from "./flattenRoutes";
 
-export interface Router<TArgs, TChildren> {
-  routes: Route<TArgs> & TChildren;
-  flattenRoutes: StringMap<RouteData<{}>>;
+const flattenRoutes = (
+  input: any,
+  acc: any,
+  parentPath: string,
+  parentFilename: string
+) => {
+  if (input.routeData) {
+    const path = join(parentPath, input.routeData.path);
+    const filename = join(
+      parentFilename,
+      input.routeData.filename ||
+        input.routeData.path.replace(/\/:[a-zA-Z]+\/*$/, "")
+    );
+    acc[path] = filename;
+    const children = input({});
+    Object.keys(children).map(k =>
+      flattenRoutes(children[k], acc, path, filename)
+    );
+  }
+  return acc;
+};
+
+interface TransformRouter {
+  <T>(input: T, parent: string): T;
+  (input: string, parent: string): string;
 }
 
-export const router = <TArgs, TChildren>(
-  routeData: RouteData<TArgs, TChildren>
-): Router<TArgs, TChildren> => {
-  return {
-    routes: transform(routeData, "") as any,
-    flattenRoutes: flattenRouter(routeData, "", {})
-  };
-};
-
-const transform = <TArgs, TChildren extends AnyDataChildren>(
-  routeData: RouteData<TArgs>,
-  parent: string = ""
-): Route<TArgs> & TChildren => {
-  // If has any children, transform as bundle
-  return routeData.children
-    ? transformBundle(parent, routeData, routeData.children)
-    : (transformRoute(parent, routeData) as any);
-};
-
-type AnyDataChildren = StringMap<RouteData<any>>;
-type AnyChildren = StringMap<Route<any>>;
-
-// Replace wild cards with value /post/:id => /post/hello
-const resolvePath = <TArgs extends StringMap<any>>(path: string, args: TArgs) =>
-  Object.keys(args).reduce(
-    (acc, k) => acc.replace(new RegExp(`:${k}`), args[k]),
-    path
-  );
-
-const transformBundle = <TArgs, TChildren extends AnyDataChildren>(
-  parent: string,
-  routeData: RouteData<TArgs>,
-  children: TChildren
-): Route<TArgs> & TChildren => {
-  return {
-    // Transform children
-    ...(Object.keys(children).reduce<AnyChildren>(
-      (acc, k) => ({
-        ...acc,
-        [k]: transform(children[k], join(parent, routeData.path))
-      }),
-      {}
-    ) as any),
-    // Transform root route
-    ...transformRoute(parent, routeData)
-  } as any;
-};
-
-const transformRoute = <TArgs>(
-  parent: string,
-  routeData: RouteData<TArgs>
-): Route<TArgs> => ({
-  url: (args: TArgs) => {
-    const url = join(parent, routeData.path);
-    return resolvePath(url === "" ? "/" : url, args);
+const transformRoutes: TransformRouter = <T extends any>(
+  input: T | string,
+  parent: string
+): T | string => {
+  if (typeof input === "function") {
+    return ((...args: any) => {
+      const children = input(...args);
+      return Object.keys(children).reduce(
+        (acc, val) => ({
+          ...acc,
+          [val]: transformRoutes(children[val], join(parent, children.url))
+        }),
+        {}
+      );
+    }) as any;
+  } else {
+    return parent;
   }
+};
+
+export interface FlattenRoutes {
+  [id: string]: string;
+}
+
+export interface Router<T> {
+  routes: T;
+  flattenRoutes: FlattenRoutes;
+}
+
+const router = <T>(input: T): Router<T> => ({
+  routes: transformRoutes<T>(input, ""),
+  flattenRoutes: flattenRoutes(input, {}, "", "")
 });
+
+export default router;

@@ -1,5 +1,9 @@
-export { default as handleRequest } from "./handleRequest";
 export { default as IsActive, isUrlActive } from "./IsUrlActive";
-export { ILinkProps, default as routeLinkBuilder } from "./routeLinkBuilder";
+export {
+  ILinkProps,
+  default as routeLinkBuilder,
+  RouteUrl
+} from "./routeLinkBuilder";
 export { default as getHrefUrl } from "./getHrefUrl";
 export { default as requestHandler } from "./requestHandler";
+export { default as withTypedRouter, WithTypedRouter } from "./withTypedRouter";

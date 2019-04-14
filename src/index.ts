@@ -1,8 +1,6 @@
-export { Route, RouteData, route, bundle } from "./routes/route";
-export { RouteIntl, routeIntl } from "./routes/routeIntl";
+export { route, bundle, simple } from "./routes";
 export { match, IMatch } from "./match";
-export { Router, router } from "./router";
-export { getRouteFilename } from "./flattenRoutes";
+export { default as router } from "./router";
 
 // Next
 export {
@@ -12,5 +10,7 @@ export {
   ILinkProps,
   IsActive,
   isUrlActive,
-  handleRequest
+  withTypedRouter,
+  WithTypedRouter,
+  RouteUrl
 } from "./next";

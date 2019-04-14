@@ -4,13 +4,11 @@
     "module": "commonjs",
     "declaration": true,
     "outDir": "./dist",
-    "baseUrl": "./src",
     "jsx": "react",
     "lib": ["dom", "es2017"],
     "preserveConstEnums": true,
     "removeComments": false,
     "skipLibCheck": true,
-    "noImplicitAny": true,
     "strict": true,
     "sourceMap": true
   },
