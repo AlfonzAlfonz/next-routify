@@ -1,19 +1,19 @@
 import * as React from "react";
-import { WithRouterProps, withRouter as originalWithRouter } from "next/router";
+import { WithRouterProps, withRouter } from "next/router";
 import { match } from "../match";
 import { FlattenRoutes } from "../router";
 
-export interface WithTypedRouter<P = {}, Q = {}> extends WithRouterProps<Q> {
+export interface WithRoutify<P = {}, Q = {}> extends WithRouterProps<Q> {
   parameters: P;
   query: Q;
 }
 
-const withTypedRouter = <TOutterProps extends {} = {}>(
+const withRoutify = <TOutterProps extends {} = {}>(
   flattenRoutes: FlattenRoutes
 ) => <P, Q>(
-  Component: React.ComponentType<TOutterProps & WithTypedRouter<P, Q>>
+  Component: React.ComponentType<TOutterProps & WithRoutify<P, Q>>
 ) => {
-  return originalWithRouter((props: TOutterProps & WithRouterProps<Q>) => {
+  return withRouter((props: TOutterProps & WithRouterProps<Q>) => {
     const query =
       props.router && props.router.query ? props.router.query : ({} as Q);
     const params =
@@ -26,4 +26,4 @@ const withTypedRouter = <TOutterProps extends {} = {}>(
   });
 };
 
-export default withTypedRouter;
+export default withRoutify;

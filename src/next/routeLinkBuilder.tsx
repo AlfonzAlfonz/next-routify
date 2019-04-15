@@ -12,6 +12,7 @@ export interface ILinkProps {
   to: RouteUrl;
   children: React.ReactElement<any>;
   active?: string;
+  className?: string;
 }
 
 export default (flattenRoutes: FlattenRoutes) => {
@@ -19,26 +20,23 @@ export default (flattenRoutes: FlattenRoutes) => {
     const linkProps = { ...props };
     delete linkProps.to;
     delete linkProps.children;
+    delete linkProps.className;
     delete linkProps.router;
 
     const url = typeof props.to === "string" ? props.to : props.to.url;
+    const child = React.Children.only(props.children);
 
     return (
       <Link {...linkProps} as={url} href={getHrefUrl(url, flattenRoutes)}>
-        {(props.active
-          ? () => {
-              const child = React.Children.only(props.children);
-              const className = isUrlActive(url, props.router)
-                ? props.active
-                : "";
-
-              return React.cloneElement(child, {
-                className: child.props.className
-                  ? child.props.className + " " + className
-                  : className
-              });
-            }
-          : () => props.children)()}
+        {React.cloneElement(child, {
+          className: [
+            isUrlActive(url, props.router) ? props.active || "" : "",
+            child.props.className,
+            props.className
+          ]
+            .filter(x => !!x)
+            .join(" ")
+        })}
       </Link>
     );
   };

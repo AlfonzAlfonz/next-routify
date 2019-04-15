@@ -10,7 +10,7 @@ export {
   ILinkProps,
   IsActive,
   isUrlActive,
-  withTypedRouter,
-  WithTypedRouter,
+  withRoutify,
+  WithRoutify,
   RouteUrl
 } from "./next";

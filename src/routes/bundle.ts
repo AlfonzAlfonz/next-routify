@@ -2,6 +2,8 @@ import { Simple } from "./simple";
 import { RouteEndpoint } from ".";
 import { Route } from "./route";
 
+// Route as root of bundle is disabled due to parameter overwriting
+
 interface Bundle {
   // tslint:disable-next-line: callable-types
   <TChildren extends Record<string, unknown>>(

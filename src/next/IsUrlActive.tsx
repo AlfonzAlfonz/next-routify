@@ -1,8 +1,9 @@
 import * as React from "react";
 import { withRouter, WithRouterProps, SingletonRouter } from "next/router";
+import { RouteUrl } from "./routeLinkBuilder";
 
 interface Props {
-  url: string;
+  url: RouteUrl;
   active?: string;
   children: React.ReactElement;
 }
@@ -21,7 +22,10 @@ const IsActive: React.FC<WithRouterProps<{}> & Props> = ({
   active = "active"
 }) => {
   const child = React.Children.only(children);
-  const className = isUrlActive(url, router) ? active : "";
+  const className = isUrlActive(typeof url === "string" ? url : url.url, router)
+    ? active
+    : "";
+
   return React.cloneElement(child, {
     className: child.props.className
       ? child.props.className + " " + className

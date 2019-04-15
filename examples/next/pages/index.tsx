@@ -5,7 +5,7 @@ import { RouteLink, routes } from "routes";
 const Index: React.FC = () => (
   <div>
     {ARTICLES.map(a => (
-      <div className="card mb-4">
+      <div className="card mb-4" key={a.id}>
         <img className="card-img-top" src={a.cover} alt="Card image cap" />
         <div className="card-body">
           <h5 className="card-title">{a.title}</h5>

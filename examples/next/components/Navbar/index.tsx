@@ -6,18 +6,18 @@ const Navbar: React.FC = () => (
     <span className="navbar-brand">Typed router</span>
     <ul className="navbar-nav mr-auto">
       <li className="nav-item">
-        <RouteLink to={routes()}>
+        <RouteLink to={routes()} active="font-weight-bold">
           <a className="nav-link">Home</a>
         </RouteLink>
       </li>
       <li className="nav-item">
-        <RouteLink to={routes().simple()}>
+        <RouteLink to={routes().simple()} active="font-weight-bold">
           <a className="nav-link">Simple</a>
         </RouteLink>
       </li>
     </ul>
     <div className="form-inline my-2 my-lg-0">
-      <RouteLink to={routes().admin()}>
+      <RouteLink to={routes().admin()} active="font-weight-bold">
         <a className="btn btn-light">Admin</a>
       </RouteLink>
     </div>

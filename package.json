@@ -1,6 +1,6 @@
 {
   "name": "next-routify",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/next-routify.git",
   "author": "Denis Homolík <denis@homolik.cz>",
@@ -23,6 +23,7 @@
     "@types/react": "^16.8.6",
     "chai": "^4.2.0",
     "mocha": "^6.0.2",
+    "next": "^8.0.4",
     "prettier": "^1.16.4",
     "react": "^16.8.6",
     "ts-mocha": "^6.0.0",
