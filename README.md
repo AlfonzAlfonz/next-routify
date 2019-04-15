@@ -1,5 +1,7 @@
 # Next Routify
 
+[![Build Status](https://travis-ci.org/AlfonzAlfonz/nextjs-typed-router.svg?branch=master)](https://travis-ci.org/AlfonzAlfonz/nextjs-typed-router)
+
 Routing alternative for safe urls with typed parameters.
 
 * Define routes with or without parameters
