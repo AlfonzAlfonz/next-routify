@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/next-routify.git",
   "author": "Denis Homolík <denis@homolik.cz>",
+  "description": "Routing alternative for safe urls with typed parameters",
   "license": "MIT",
   "scripts": {
     "lint": "yarn tslint -c tslint.json 'src/**/*.ts' --project tsconfig.json",
@@ -39,5 +40,15 @@
   },
   "dependencies": {
     "path-to-regexp": "^3.0.0"
-  }
+  },
+  "keywords": [
+    "next",
+    "next.js",
+    "react",
+    "route",
+    "router",
+    "routes",
+    "routing",
+    "routify"
+  ]
 }
