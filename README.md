@@ -1,21 +1,28 @@
-# Next JS typed router
+# Next Routify
 
 Routing alternative for safe urls with typed parameters.
 
+* Define routes with or without parameters
+* Generate urls for links
+* Integrated request handler
+* Retrieve parameters from path separately from query
+
 ## Setup with typescript
 
-Install it:
+Check out the example [app](./examples/next/)
+
+**Install it:**
 
 ```bash
-npm install --save nextjs-typed-router ts-node
+npm install --save next-routify ts-node
 
-yarn add nextjs-typed-router ts-node
+yarn add next-routify ts-node
 ```
 
-Create routes.ts with your routes:
+**Create routes.ts with your routes in root directory:**
 
 ```typescript
-import { route, simple, bundle, router, routeLinkBuilder } from "../../dist";
+import { route, simple, bundle, router, routeLinkBuilder } from "next-routify";
 const { routes, flattenRoutes } = router(
   // Define root route
   bundle(simple(""), {
@@ -35,13 +42,13 @@ const { routes, flattenRoutes } = router(
 export const RouteLink = routeLinkBuilder(flattenRoutes);
 ```
 
-Create server.ts in root directory:
+**Create server.ts in root directory:**
 
 ```typescript
 import { createServer } from "http";
 import * as next from "next";
-import { requestHandler } from "nextjs-typed-router";
-import { flattenRoutes } from "./src/routes";
+import { requestHandler } from "next-routify";
+import { flattenRoutes } from "./routes";
 
 const app = next({
   dev: process.env.NODE_ENV !== "production"
@@ -59,7 +66,7 @@ app.prepare().then(() => {
 });
 ```
 
-Create tsconfig.server.json
+**Create tsconfig.server.json**
 
 ```json
 {
@@ -72,7 +79,7 @@ Create tsconfig.server.json
 }
 ```
 
-Add script to your package.json:
+**Add script to your package.json:**
 
 ```json
 {
@@ -82,9 +89,9 @@ Add script to your package.json:
 }
 ```
 
-Now you can simply run server with:
+**Now you can run server simply with:**
 
-```json
+```bash
 yarn next
 ```
 
