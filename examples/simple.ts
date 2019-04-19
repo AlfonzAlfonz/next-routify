@@ -5,6 +5,7 @@ const { routes, flattenRoutes } = router(
     article: route<{ id: number }>("article/:id"),
     user: simple("user"),
     admin: bundle(simple("admin"), {
+      dashboard: simple("dashboard", ""),
       article: route<{ id: number }>("article/:id"),
       user: simple("user")
     })

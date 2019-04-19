@@ -14,6 +14,13 @@ describe("Simple url generating", () => {
   it("admin", () => {
     expect(routes().admin().url).to.equal("/admin");
   });
+  it("admin/dashboard", () => {
+    expect(
+      routes()
+        .admin()
+        .dashboard().url
+    ).to.equal("/admin/dashboard");
+  });
   it("admin/article", () => {
     expect(
       routes()
