@@ -10,7 +10,7 @@ const flattenRoutes = (
     const path = join(parentPath, input.routeData.path);
     const filename = join(
       parentFilename,
-      input.routeData.filename !== null ||
+      input.routeData.filename !== null &&
         input.routeData.filename !== undefined
         ? input.routeData.filename
         : input.routeData.path.replace(/\/:[a-zA-Z]+\/*$/, "")
