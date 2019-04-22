@@ -1,5 +1,15 @@
-import { routeData } from "../routeData";
+import { RouteData } from "../routeData";
 
-export type Empty = () => {};
+export interface Empty {
+  (): {};
+  routeData: RouteData;
+}
 
-export const empty = (path: string) => routeData(() => ({}), { path });
+export const empty = (path: string): Empty => {
+  const f = () => ({});
+  f.routeData = {
+    path,
+    options: {}
+  };
+  return f;
+};

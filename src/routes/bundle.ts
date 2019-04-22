@@ -11,11 +11,11 @@ interface Bundle {
   <TChildren extends Record<string, unknown>>(
     r: Simple,
     children: TChildren
-  ): WithRouteData & (() => RouteEndpoint & TChildren);
+  ): () => RouteEndpoint & TChildren;
   <TChildren extends Record<string, unknown>>(
     r: Empty,
     children: TChildren
-  ): WithRouteData & (() => {} & TChildren);
+  ): () => {} & TChildren;
   // <TChildren extends StringMap<unknown>, TArgs = {} | undefined>(
   //   r: Route<TArgs>,
   //   children: TChildren

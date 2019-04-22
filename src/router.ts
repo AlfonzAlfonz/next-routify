@@ -65,9 +65,9 @@ export interface Router<T> {
   flattenRoutes: FlattenRoutes;
 }
 
-const router = <T extends WithRouteData>(input: T): Router<T> => ({
+const router = <T>(input: T): Router<T> => ({
   routes: transformRoutes<T>(input, ""),
-  flattenRoutes: flattenRoutes(input, {}, "", "")
+  flattenRoutes: flattenRoutes(input as any, {}, "", "")
 });
 
 export default router;

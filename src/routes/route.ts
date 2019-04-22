@@ -1,14 +1,19 @@
 import { resolvePath } from "../utils";
 import { RouteEndpoint } from "./index";
-import { routeData } from "../routeData";
+import { RouteData } from "../routeData";
 
-export type Route<TArgs = {}> = (args: TArgs) => RouteEndpoint;
+export interface Route<TArgs = {}> {
+  (args: TArgs): RouteEndpoint;
+  routeData: RouteData;
+}
 
-export const route = <TArgs = {}>(path: string, filename?: string) => {
-  return routeData(
-    (args: TArgs) => ({
-      url: resolvePath(path, args)
-    }),
-    { path, filename }
-  );
+export const route = <TArgs = {}>(
+  path: string,
+  filename?: string
+): Route<TArgs> => {
+  const f = (args: TArgs) => ({
+    url: resolvePath(path, args)
+  });
+  f.routeData = { path, filename, options: {} };
+  return f;
 };

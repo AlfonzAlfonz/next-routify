@@ -1,12 +1,15 @@
 import { RouteEndpoint } from "./index";
-import { routeData } from "../routeData";
+import { RouteData } from "../routeData";
 
-export type Simple = () => RouteEndpoint;
+export interface Simple {
+  (): RouteEndpoint;
+  routeData: RouteData;
+}
 
-export const simple = (path: string, filename?: string) =>
-  routeData(
-    () => ({
-      url: path
-    }),
-    { path, filename }
-  );
+export const simple = (path: string, filename?: string): Simple => {
+  const f = () => ({
+    url: path
+  });
+  f.routeData = { path, filename, options: {} };
+  return f;
+};
