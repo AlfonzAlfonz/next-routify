@@ -1,4 +1,4 @@
-export { route, bundle, simple } from "./routes";
+export { route, bundle, simple, empty, filesystem } from "./routes";
 export { match, IMatch } from "./match";
 export { default as router } from "./router";
 

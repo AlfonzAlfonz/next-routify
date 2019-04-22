@@ -1,4 +1,4 @@
-import { route, simple, bundle, router } from "../dist";
+import { route, simple, bundle, router, empty, filesystem } from "../dist";
 
 const { routes, flattenRoutes } = router(
   bundle(simple(""), {
@@ -8,7 +8,12 @@ const { routes, flattenRoutes } = router(
       dashboard: simple("dashboard", ""),
       article: route<{ id: number }>("article/:id"),
       user: simple("user")
-    })
+    }),
+    store: bundle(empty("store"), {
+      tshirts: simple("tshirts"),
+      misc: simple("misc")
+    }),
+    dev: filesystem("dev")
   })
 );
 
@@ -33,3 +38,11 @@ routes()
 routes()
   .admin()
   .user().url;
+
+routes()
+  .store()
+  .misc().url;
+
+routes()
+  .store()
+  .tshirts();

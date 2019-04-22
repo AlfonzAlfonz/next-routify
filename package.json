@@ -1,6 +1,6 @@
 {
   "name": "next-routify",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/next-routify.git",
   "author": "Denis Homolík <denis@homolik.cz>",
@@ -8,7 +8,8 @@
   "license": "MIT",
   "scripts": {
     "lint": "yarn tslint -c tslint.json 'src/**/*.ts' --project tsconfig.json",
-    "test": "ts-mocha --reporter spec test/*.ts",
+    "test": "mocha --require ts-node/register test/**/*.ts",
+    "coverage": "nyc mocha test/**/*.ts",
     "build": "yarn tsc",
     "debug": "tsc && yarn mocha --debug-brk",
     "ci": "yarn lint && yarn build && yarn test",
@@ -24,6 +25,7 @@
     "chai": "^4.2.0",
     "mocha": "^6.0.2",
     "next": "^8.0.4",
+    "nyc": "^13.3.0",
     "prettier": "^1.16.4",
     "react": "^16.8.6",
     "ts-mocha": "^6.0.0",
@@ -51,5 +53,23 @@
     "routes",
     "routing",
     "routify"
-  ]
+  ],"nyc": {
+    "include": [
+      "src/**/*.ts",
+      "src/**/*.tsx"
+    ],
+    "extension": [
+      ".ts",
+      ".tsx"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "html"
+    ],
+    "sourceMap": true,
+    "instrument": true
+  }
 }

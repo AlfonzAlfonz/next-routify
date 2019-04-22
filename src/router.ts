@@ -1,7 +1,8 @@
 import { join } from "./utils";
+import { WithRouteData, RouteOptions } from "./routeData";
 
 const flattenRoutes = (
-  input: any,
+  input: WithRouteData,
   acc: any,
   parentPath: string,
   parentFilename: string
@@ -15,7 +16,7 @@ const flattenRoutes = (
         ? input.routeData.filename
         : input.routeData.path.replace(/\/:[a-zA-Z]+\/*$/, "")
     );
-    acc[path] = filename;
+    acc[path] = { filename, options: input.routeData.options };
     const children = input({});
     Object.keys(children).map(k =>
       flattenRoutes(children[k], acc, path, filename)
@@ -39,7 +40,13 @@ const transformRoutes: TransformRouter = <T extends any>(
       return Object.keys(children).reduce(
         (acc, val) => ({
           ...acc,
-          [val]: transformRoutes(children[val], join(parent, children.url))
+          [val]: transformRoutes(
+            children[val],
+            join(
+              parent,
+              children.url !== undefined ? children.url : input.routeData.path
+            )
+          )
         }),
         {}
       );
@@ -50,7 +57,7 @@ const transformRoutes: TransformRouter = <T extends any>(
 };
 
 export interface FlattenRoutes {
-  [id: string]: string;
+  [id: string]: { filename: string; options: RouteOptions };
 }
 
 export interface Router<T> {
@@ -58,7 +65,7 @@ export interface Router<T> {
   flattenRoutes: FlattenRoutes;
 }
 
-const router = <T>(input: T): Router<T> => ({
+const router = <T extends WithRouteData>(input: T): Router<T> => ({
   routes: transformRoutes<T>(input, ""),
   flattenRoutes: flattenRoutes(input, {}, "", "")
 });

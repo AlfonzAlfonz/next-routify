@@ -1,4 +1,11 @@
-import { route, simple, bundle, router, routeLinkBuilder } from "../../dist";
+import {
+  route,
+  simple,
+  bundle,
+  router,
+  routeLinkBuilder,
+  filesystem
+} from "../../dist";
 
 export const { routes, flattenRoutes } = router(
   bundle(simple(""), {
@@ -7,7 +14,8 @@ export const { routes, flattenRoutes } = router(
     admin: bundle(simple("admin"), {
       article: route<{ id: number }>("article/:id"),
       user: simple("user")
-    })
+    }),
+    dev: filesystem("dev")
   })
 );
 
