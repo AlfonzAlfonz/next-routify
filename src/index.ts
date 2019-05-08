@@ -12,5 +12,6 @@ export {
   isUrlActive,
   withRoutify,
   WithRoutify,
-  RouteUrl
+  RouteUrl,
+  useRoutify
 } from "./next";

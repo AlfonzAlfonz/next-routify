@@ -5,6 +5,7 @@ import { FlattenRoutes } from "../router";
 
 export interface WithRoutify<P = {}, Q = {}> extends WithRouterProps<Q> {
   parameters: P;
+  params: P;
   query: Q;
 }
 
@@ -22,7 +23,9 @@ const withRoutify = <TOutterProps extends {} = {}>(
       match<P>(props.router!.asPath!, flattenRoutes)
         ? match<P>(props.router!.asPath!, flattenRoutes).params
         : ({} as P);
-    return <Component {...props} query={query} parameters={params} />;
+    return (
+      <Component {...props} query={query} parameters={params} params={params} />
+    );
   });
 };
 
