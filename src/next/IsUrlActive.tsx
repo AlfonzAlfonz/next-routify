@@ -1,6 +1,6 @@
 import * as React from "react";
 import { withRouter, WithRouterProps, SingletonRouter } from "next/router";
-import { RouteUrl } from "./routeLinkBuilder";
+import { RouteUrl } from "./routifyBuilder";
 
 interface Props {
   url: RouteUrl;

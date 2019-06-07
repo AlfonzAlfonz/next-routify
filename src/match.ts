@@ -8,7 +8,7 @@ export interface IMatch<TParams> {
 }
 
 // Match url to flattenRoute
-export const match = <TParams>(
+export const match = <TParams = {}>(
   p: string,
   flattenRoutes: FlattenRoutes
 ): IMatch<TParams> => {

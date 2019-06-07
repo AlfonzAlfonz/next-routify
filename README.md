@@ -40,8 +40,8 @@ const { routes, flattenRoutes } = router(
   })
 );
 
-// Component for creating links
-export const RouteLink = routeLinkBuilder(flattenRoutes);
+// Component for creating links and redirect component
+export const { RouteLink, Redirect } = routifyBuilder(flattenRoutes);
 ```
 
 **Create server.ts in root directory:**

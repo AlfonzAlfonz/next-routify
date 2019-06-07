@@ -7,11 +7,12 @@ export {
   requestHandler,
   getHrefUrl,
   routeLinkBuilder,
-  ILinkProps,
+  LinkProps,
   IsActive,
   isUrlActive,
   withRoutify,
   WithRoutify,
   RouteUrl,
-  useRoutify
+  useRoutify,
+  routifyBuilder
 } from "./next";

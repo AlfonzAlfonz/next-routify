@@ -3,7 +3,7 @@ import {
   simple,
   bundle,
   router,
-  routeLinkBuilder,
+  routifyBuilder,
   filesystem
 } from "../../dist";
 
@@ -19,4 +19,4 @@ export const { routes, flattenRoutes } = router(
   })
 );
 
-export const RouteLink = routeLinkBuilder(flattenRoutes);
+export const { RouteLink, Redirect } = routifyBuilder(flattenRoutes);

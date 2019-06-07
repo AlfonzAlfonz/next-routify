@@ -1,27 +1,28 @@
 import * as React from "react";
-import Link from "next/link";
-import { withRouter, WithRouterProps } from "next/router";
-import getHrefUrl from "./getHrefUrl";
-import { isUrlActive } from "./IsUrlActive";
-import { FlattenRoutes } from "../router";
+import { FlattenRoutes } from "../../router";
+import { RouteUrl } from "../routifyBuilder";
+import { WithRouterProps, withRouter } from "next/router";
+import getHrefUrl from "../getHrefUrl";
+import { isUrlActive } from "../IsUrlActive";
+import Link, { LinkProps as OriginalLinkProps } from "next/link";
 
-export type RouteUrl = string | { url: string };
-
-export interface ILinkProps {
-  prefetch?: boolean;
+export type LinkProps = Omit<
+  Omit<Omit<OriginalLinkProps, "href">, "as">,
+  "passHref"
+> & {
   to: RouteUrl;
-  children: React.ReactElement<any>;
   active?: string;
   className?: string;
-}
+};
 
 export default (flattenRoutes: FlattenRoutes) => {
-  const RouteLink: React.FC<ILinkProps & WithRouterProps<{}>> = props => {
+  const RouteLink: React.FC<LinkProps & WithRouterProps<{}>> = props => {
     const linkProps = { ...props };
     delete linkProps.to;
     delete linkProps.children;
     delete linkProps.className;
     delete linkProps.router;
+    delete linkProps.active;
 
     const url = typeof props.to === "string" ? props.to : props.to.url;
     const child = React.Children.only(props.children);
