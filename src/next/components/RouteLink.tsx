@@ -6,10 +6,7 @@ import getHrefUrl from "../getHrefUrl";
 import { isUrlActive } from "../IsUrlActive";
 import Link, { LinkProps as OriginalLinkProps } from "next/link";
 
-export type LinkProps = Omit<
-  Omit<Omit<OriginalLinkProps, "href">, "as">,
-  "passHref"
-> & {
+export type LinkProps = Omit<Omit<OriginalLinkProps, "href">, "as"> & {
   to: RouteUrl;
   active?: string;
   className?: string;
