@@ -5,7 +5,11 @@ import { FlattenRoutes } from "../router";
 import { match } from "../match";
 import { join } from "../utils";
 
-const requestHandler = (app: Server, flattenRoutes: FlattenRoutes) => {
+const requestHandler = (
+  app: Server,
+  flattenRoutes: FlattenRoutes,
+  includeParamsInQuery?: boolean
+) => {
   const handle = app.getRequestHandler();
 
   return (req: IncomingMessage, res: ServerResponse) => {
@@ -20,18 +24,25 @@ const requestHandler = (app: Server, flattenRoutes: FlattenRoutes) => {
           flattenRoutes[result.path].filename,
           (result.params as any).path || ""
         ),
-        {
-          ...result.params,
-          ...query
-        }
+        includeParamsInQuery
+          ? { ...result.params, ...query }
+          : {
+              ...query
+            }
       );
     }
 
     if (result) {
-      return app.render(req, res, flattenRoutes[result.path].filename, {
-        ...result.params,
-        ...query
-      });
+      return app.render(
+        req,
+        res,
+        flattenRoutes[result.path].filename,
+        includeParamsInQuery
+          ? { ...result.params, ...query }
+          : {
+              ...query
+            }
+      );
     }
 
     return handle(req, res);

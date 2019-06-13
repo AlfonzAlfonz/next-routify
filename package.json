@@ -1,6 +1,6 @@
 {
   "name": "next-routify",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "main": "dist/index.js",
   "repository": "https://github.com/AlfonzAlfonz/next-routify.git",
   "author": "Denis Homolík <denis@homolik.cz>",
