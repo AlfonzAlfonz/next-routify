@@ -11,7 +11,7 @@ export interface IMatch<TParams> {
 export const match = <TParams = {}>(
   p: string,
   flattenRoutes: FlattenRoutes
-): IMatch<TParams> => {
+): IMatch<TParams> | undefined => {
   const { pathname } = parse(p);
   return Object.keys(flattenRoutes)
     .map(k => {
@@ -30,5 +30,5 @@ export const match = <TParams = {}>(
         };
       }
     })
-    .find(r => r !== undefined) as IMatch<TParams>;
+    .find(r => r !== undefined);
 };

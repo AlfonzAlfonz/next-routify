@@ -10,7 +10,7 @@ const useRoutify = <P, Q = DefaultQuery>(flattenRoutes: FlattenRoutes) => {
   const query = router && router.query ? router.query : ({} as Q);
   const params =
     router && router.asPath && match<P>(router!.asPath!, flattenRoutes)
-      ? match<P>(router!.asPath!, flattenRoutes).params
+      ? match<P>(router!.asPath!, flattenRoutes)!.params
       : ({} as P);
 
   return {

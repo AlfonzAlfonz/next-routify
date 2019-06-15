@@ -40,8 +40,16 @@ const { routes, flattenRoutes } = router(
   })
 );
 
-// Component for creating links and redirect component
-export const { RouteLink, Redirect } = routifyBuilder(flattenRoutes);
+export const {
+  // Alternative for Next Link
+  RouteLink,
+  // Redirect components that redirects on render
+  Redirect,
+  // Component that adds class to children component if is user on page
+  IsUrlActive,
+  // function to check whether is user on page
+  isUrlActive
+} = routifyBuilder(flattenRoutes);
 ```
 
 **Create server.ts in root directory:**

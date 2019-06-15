@@ -6,7 +6,7 @@ const Navbar: React.FC = () => (
     <span className="navbar-brand">Typed router</span>
     <ul className="navbar-nav mr-auto">
       <li className="nav-item">
-        <RouteLink to={routes()} active="font-weight-bold">
+        <RouteLink to={routes()} active="font-weight-bold" strict>
           <a className="nav-link">Home</a>
         </RouteLink>
       </li>

@@ -1,6 +1,6 @@
-import getHrefUrl from "../src/next/getHrefUrl";
 import { flattenRoutes } from ".";
 import { expect } from "chai";
+import { getHrefUrl } from "../dist";
 
 describe("getHrefUrl function", () => {
   it("root", () => {

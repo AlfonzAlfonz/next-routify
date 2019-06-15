@@ -24,7 +24,7 @@ const withRoutify = <TOutterProps extends {} = {}>(
       props.router &&
       props.router.asPath &&
       match<P>(props.router!.asPath!, flattenRoutes)
-        ? match<P>(props.router!.asPath!, flattenRoutes).params
+        ? match<P>(props.router!.asPath!, flattenRoutes)!.params
         : ({} as P);
     return (
       <Component

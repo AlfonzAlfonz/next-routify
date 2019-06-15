@@ -8,8 +8,6 @@ export {
   getHrefUrl,
   routeLinkBuilder,
   LinkProps,
-  IsActive,
-  isUrlActive,
   withRoutify,
   WithRoutify,
   RouteUrl,

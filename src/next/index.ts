@@ -1,4 +1,3 @@
-export { default as IsActive, isUrlActive } from "./IsUrlActive";
 export { LinkProps, default as routeLinkBuilder } from "./components/RouteLink";
 export { RouteUrl } from "./routifyBuilder";
 export { default as getHrefUrl } from "./getHrefUrl";
