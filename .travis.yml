@@ -1,7 +1,14 @@
-language : node_js
-node_js :  
- - stable
-install:  
- - yarn
-script:  
- - yarn ci
+language: node_js
+node_js:
+- stable
+install:
+- yarn
+script:
+- yarn ci
+deploy:
+  provider: npm
+  email: denis@homolik.cz
+  api_key:
+    secure: WLCOjqT19zlmc/WDF9CX7CxsdJK3PWIGttN5ix9wTlvSMFZ6V6vWnQRWEzpBNdiveSCayWJfS0ofdfW0XGBwaPKh1oSdrynbCQlB2hV3mD0Lt6zVF0CrVbLV2bN0yjvOccmcWcqGJl1w7fj+9mQUb5xQzc2+aDErUhWJBjVIY5BMCAskWaD+EN25FLSUXlWMk/a/yzWDaexGo6HoT1BlxUSfCznoWJa606RkNouOb2WKqx4W0fYMxxohu17WdQslFWRClZAvun7WY7Etz8nbXpDVzT185Chz+slf7ZDahuT8IHfd2Q4IL5q7eZXnti+tj3Q2WiMzxRcvlYGC5v05lPQLGpc2t+ffkcik0YFifYo4wnFyn7n5AUUM9ajl8uJbhKtz14VsBM07cuGfxz9PwW+afMgrzq7Dyhv/b23OyDil4BZltViwrWNKcIXtMo89hCay13Gjx/WrYKkbHm+KqhKidGeetFkV1UyC9O5t4XylLsZ3VGaH0c4P62TwU4baL1J34v6iOwZJIpDCGIs6AqMn+iuE+tHLSd2qFcY+oHoasERbwfisRRNFqr7xNOD+bkLrD8pb8PnaUdPJzOdVyjpVrmTpglC1OpMM8uUmV2f5iZGnt/gtdkMjL8LsD5JbotF0lJWl6TfvlP5rrW2bUvhdv/6vukc648q9+P6Rmpo=
+  on:
+    repo: AlfonzAlfonz/next-routify

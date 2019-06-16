@@ -20,8 +20,8 @@ const IsUrlActive = (flattenRoutes: FlattenRoutes): React.FC<Props> => ({
   const { router } = useRoutify(flattenRoutes);
   const child = React.Children.only(children);
   const className = isUrlActive(flattenRoutes)(
-    getRouteUrl(url),
     router!.asPath!,
+    getRouteUrl(url),
     strict
   )
     ? active
