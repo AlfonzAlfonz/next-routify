@@ -3,7 +3,7 @@ import { match } from "../match";
 import { RouteUrl, getRouteUrl } from "./routifyBuilder";
 
 export const isUrlActive = (flattenRoutes: FlattenRoutes) => (
-  subject: RouteUrl,
+  subject: RouteUrl | null | undefined,
   url: RouteUrl,
   strict: boolean = false
 ): boolean => {
@@ -19,7 +19,7 @@ export const isUrlActive = (flattenRoutes: FlattenRoutes) => (
 };
 
 const isChildOf = (
-  subject: string,
+  subject: string | null | undefined,
   url: string,
   flattenRoutes: FlattenRoutes
 ) =>

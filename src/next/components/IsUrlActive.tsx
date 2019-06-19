@@ -19,13 +19,11 @@ const IsUrlActive = (flattenRoutes: FlattenRoutes): React.FC<Props> => ({
 }) => {
   const { router } = useRoutify(flattenRoutes);
   const child = React.Children.only(children);
-  const className = isUrlActive(flattenRoutes)(
-    router!.asPath!,
-    getRouteUrl(url),
-    strict
-  )
-    ? active
-    : "";
+  const className =
+    router &&
+    isUrlActive(flattenRoutes)(router.asPath, getRouteUrl(url), strict)
+      ? active
+      : "";
 
   return React.cloneElement(child, {
     className: child.props.className

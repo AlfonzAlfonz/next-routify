@@ -9,10 +9,10 @@ export interface IMatch<TParams> {
 
 // Match url to flattenRoute
 export const match = <TParams = {}>(
-  p: string,
+  p: string | null | undefined,
   flattenRoutes: FlattenRoutes
 ): IMatch<TParams> | undefined => {
-  const { pathname } = parse(p);
+  const { pathname } = parse(p || "");
   return Object.keys(flattenRoutes)
     .map(k => {
       const keys: pathToRegexp.Key[] = [];

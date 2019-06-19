@@ -74,6 +74,18 @@ describe("Matching routes", () => {
     expect(flattenRoutes[m.path].filename).to.equal("/dev");
     expect(flattenRoutes[m.path].options.filesystem).to.equal(true);
   });
+  it("undefined", () => {
+    const m = match(undefined, flattenRoutes)!;
+    expect(m).to.equal(undefined);
+  });
+  it("null", () => {
+    const m = match(null, flattenRoutes)!;
+    expect(m).to.equal(undefined);
+  });
+  it("empty string", () => {
+    const m = match("", flattenRoutes)!;
+    expect(m).to.equal(undefined);
+  });
 
   // it("category", () => {
   //   const m = match("/category/5", flattenRoutes);

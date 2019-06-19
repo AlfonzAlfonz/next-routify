@@ -121,4 +121,12 @@ describe("Is url active", () => {
       )
     ).to.equal(false);
   });
+
+  // Use with null and undefined
+  it("is not active with query (strict)", () => {
+    expect(isUrlActive(undefined, routes().admin(), true)).to.equal(false);
+  });
+  it("is not active with query (strict)", () => {
+    expect(isUrlActive(null, routes().admin(), true)).to.equal(false);
+  });
 });

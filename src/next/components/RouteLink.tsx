@@ -30,7 +30,7 @@ export default (flattenRoutes: FlattenRoutes) => {
       <Link {...linkProps} as={url} href={getHrefUrl(url, flattenRoutes)}>
         {React.cloneElement(child, {
           className: [
-            isUrlActive(flattenRoutes)(router!.asPath!, url, strict)
+            router && isUrlActive(flattenRoutes)(router.asPath, url, strict)
               ? active || ""
               : "",
             child.props.className,
