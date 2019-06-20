@@ -1,7 +1,7 @@
 import { FlattenRoutes } from "../router";
 import RouteLink from "./components/RouteLink";
 import Redirect from "./components/Redirect";
-import IsUrlActive from "./components/IsUrlActive";
+import UrlActiveLink from "./components/UrlActiveLink";
 import { isUrlActive } from "./isUrlActive";
 
 export type RouteUrl = { url: string } | string;
@@ -17,6 +17,6 @@ export const getRouteUrl: GetRouteUrl = ((url: RouteUrl | null | undefined) =>
 export default (flattenRoutes: FlattenRoutes) => ({
   RouteLink: RouteLink(flattenRoutes),
   Redirect: Redirect(flattenRoutes),
-  IsUrlActive: IsUrlActive(flattenRoutes),
+  UrlActiveLink: UrlActiveLink(flattenRoutes),
   isUrlActive: isUrlActive(flattenRoutes)
 });

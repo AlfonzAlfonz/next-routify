@@ -11,7 +11,7 @@ export interface Props {
   children: React.ReactElement;
 }
 
-const IsUrlActive = (flattenRoutes: FlattenRoutes): React.FC<Props> => ({
+const UrlActiveLink = (flattenRoutes: FlattenRoutes): React.FC<Props> => ({
   children,
   url,
   active = "active",
@@ -32,4 +32,4 @@ const IsUrlActive = (flattenRoutes: FlattenRoutes): React.FC<Props> => ({
   });
 };
 
-export default IsUrlActive;
+export default UrlActiveLink;
